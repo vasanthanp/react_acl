@@ -33,14 +33,12 @@ const authenticate = (req, res, next) => {
     }
 }
 const authorizeRoute = controller => (req, res, next) => {
-    try {
+    try{
         const role = req.user.role;
-        console.log(role)
         if (role == 'admin') return next();
-        Permission[role].find(route => route === controller
+        Permission[role].find(route => route === controller)
             ? next()
             : res.status(401).json({ status: 401, message: 'UnAuthorized Access' })
-        )
     } catch (err) {
         console.log(err)
         res.status(500).message({ status: 500, message: `Internal Server Error` })

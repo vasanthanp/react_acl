@@ -22,13 +22,14 @@ const createProductCotroller = async (req, res) => {
 const getProductsCotroller = async (req, res) => {
     try {
         const products = await Product.find();
-        res.status(200).json({ products })
+        return res.status(200).json({ status: 200, message: `Products Found`, products })
     } catch (err) {
         if (!err.status) {
             err.status = 500;
             err.message = `Internal Server Error`
         }
-        res.status(err.status).json({ status: err.status, message: err.message })
+        console.log(err)
+        return res.status(err.status).json({ status: err.status, message: err.message })
     }
 }
 const updateProductCotroller = async (req, res) => {
